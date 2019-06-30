@@ -4,6 +4,7 @@ from Tkinter import *
 
 from CalendarFunctions import *
 from SoundFunctions import *
+from DriveFunctions import *
 
 from datetime import datetime,timedelta
 from random import choice
@@ -53,7 +54,8 @@ class Fullscreen_Window:
             if deltaStart > -10:
                 try:
                     soundFile = nextEvent['description']
-                    PlayBeep(soundFile)
+                    if GetFileFromDrive(soundFile) is not None:
+                        PlayBeep(soundFile)
                 except:
                     pass
             self.currentEtag = nextEvent['etag']
