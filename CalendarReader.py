@@ -32,7 +32,7 @@ class Fullscreen_Window:
     def update_fullscreen(self, event=None):
         
         nextEvent = getNextTask()
-        print nextEvent
+        # print nextEvent
         
         # Nothing in the future, lets just clear everything
         if nextEvent is None:
