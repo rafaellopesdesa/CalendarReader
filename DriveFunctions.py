@@ -8,7 +8,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
 # If modifying these scopes, delete the file token.pickle.
-SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly']
+SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
 
 def GetFileFromDrive(fileName):
 
@@ -42,7 +42,7 @@ def GetFileFromDrive(fileName):
 
     # Call the Drive v3 API
     #results = service.files().list(fields="*").execute()
-    results = service.files().list(fields='*').execute()
+    results = service.files().list().execute()
     items = results.get('files', [])
     if not items:
         return None
@@ -50,19 +50,14 @@ def GetFileFromDrive(fileName):
         for item in items:
             #print(fileName, item['name'])
             if fileName == item['name']:
-                #print(u'{0} ({1})'.format(item['name'], item['id']))
-
-                request = service.files().get_media(fileId=item['id'])
-                print(request)
-                print(fileName)
-                fh = io.FileIO('sounds/{0}'.format(fileName), 'wb')
-                print(fh)
-                downloader = MediaIoBaseDownload(fh, request)
-                print(downloader)
-                done = False
-                while done is False:
-                    status, done = downloader.next_chunk()
-                    print(status.progress()*100)
-                print('Done') 
-                return fileName
+                try:
+                    request = service.files().get_media(fileId=item['id'])
+                    fh = io.FileIO('sounds/{0}'.format(fileName), 'wb')
+                    downloader = MediaIoBaseDownload(fh, request)
+                    done = False
+                    while done is False:
+                        status, done = downloader.next_chunk()
+                    return fileName
+                except:
+                    return None
     return None
