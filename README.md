@@ -24,6 +24,6 @@ O software ja vem com um arquivo padrao, chama-se beep.mp3. Se voce quiser um ar
 
 O arquivo de som e tocado 3 vezes, em intervalo de 2 segundos, no inicio da tarefa. Mantenha o som abaixo de 2 segundos para nao tocar um em cima do outro.
 
-#Configuracao da Internet
+# Configuracao da Internet Wireless
 
 O programa ja vem configurado com a rede Regina (casa do Rafael) e Salmonela (casa da Cris). Para mudar a rede ou a senha voce vai precisar de um teclado e mouse USB. Conecte os dois atras do dispositivo, lique o RasPi, aperte <ESC> para sair do programa da agenda, clique no simbolo de rede wireless e configure a nova rede.
