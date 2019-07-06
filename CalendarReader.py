@@ -31,9 +31,13 @@ class Fullscreen_Window:
         self.tk.after(2000, self.update_fullscreen)
 
     def update_fullscreen(self, event=None):
-        
-        nextEvent = getNextTask()
-        # print nextEvent
+
+        nextEvent = None
+        try:
+            nextEvent = getNextTask()
+        except:
+            self.clean_noInternet()
+            self.tk.after(2000, self.update_fullscreen)            
         
         # Nothing in the future, lets just clear everything
         if nextEvent is None:
@@ -59,6 +63,8 @@ class Fullscreen_Window:
                 except:
                     pass
             self.currentEtag = nextEvent['etag']
+            self.currentEtag = ''
+            
             colorPallete = ['blue','blue violet','medium sea green','purple','coral','orange','OrangeRed2','dodger blue','gray20','navy','dark green','red3']
             colorName = choice(colorPallete)
             try:
@@ -85,7 +91,13 @@ class Fullscreen_Window:
         self.clearedEtag = self.currentEtag
         self.message.config(text='Agenda do Samuel',bg='gray',fg='black',anchor=choice(['n','ne','e','se','s','sw','w','nw','center']))        
         self.message.pack(expand=True,fill=BOTH)
-        
+
+    def clean_noInternet(self, event=None):
+
+        self.clearedEtag = self.currentEtag
+        self.message.config(text='Agenda do Samuel\nNo Internet',bg='gray',fg='black',anchor=choice(['n','ne','e','se','s','sw','w','nw','center']))        
+        self.message.pack(expand=True,fill=BOTH)
+
         
     def toggle_fullscreen(self, event=None):
         self.state = not self.state  # Just toggling the boolean
